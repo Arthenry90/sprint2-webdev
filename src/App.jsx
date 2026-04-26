@@ -8,6 +8,7 @@ import Missoes from './pages/Missoes';
 import Recompensas from './pages/Recompensas';
 import Perfil from './pages/Perfil';
 import PrivateRoute from './components/PrivateRoute';
+import AvisoLogin from './pages/AvisoLogin';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Navbar />
         <main className="flex-grow">
           <Routes>
+            <Route path="/aviso-login" element={<AvisoLogin />} />
             <Route path="/" element={<Home />} />      
             <Route path="/login" element={<Login />} />
 
