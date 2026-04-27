@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { usuariosTeste } from '../data/usuarios';
 
 function Login() {
   const [identificador, setIdentificador] = useState(''); // CPF ou Carteirinha
@@ -8,9 +9,13 @@ function Login() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if ((identificador === "11111111111" || identificador === "8472A91B5C03") && senha === "Testes123") {
+    const usuarioEncontrado = usuariosTeste.find(u => 
+      (u.id === identificador || u.carteirinha === identificador) && u.senha === senha
+    );
+
+    if (usuarioEncontrado) {
       localStorage.setItem('isLogged', 'true');
-      localStorage.setItem('user', JSON.stringify({ nome: "Marina Silva Santos", id: identificador }));
+      localStorage.setItem('user', JSON.stringify(usuarioEncontrado));
       navigate('/perfil');
     } else {
       alert("Identificador ou senha inválidos.");
