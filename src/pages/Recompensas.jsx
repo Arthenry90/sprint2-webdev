@@ -28,10 +28,10 @@ function Recompensas() {
   if (!usuario) return <div>Carregando...</div>;
   
   const itens = [
-    { nome: "Garrafa", pontos: 300, img: "/public/assets/garrafa_agua.png" },
-    { nome: "Escova", pontos: 300, img: "/public/assets/escova_dentes.png" },
-    { nome: "Moletom", pontos: 500, img: "/public/assets/moletom.png" },
-    { nome: "Mochila", pontos: 800, img: "/public/assets/mochila.png" },
+    { nome: "Garrafa", pontos: 300, img: "/assets/garrafa_agua.png" },
+    { nome: "Escova", pontos: 300, img: "/assets/escova_dentes.png" },
+    { nome: "Moletom", pontos: 500, img: "/assets/moletom.png" },
+    { nome: "Mochila", pontos: 800, img: "/assets/mochila.png" },
   ];
 
   return (
