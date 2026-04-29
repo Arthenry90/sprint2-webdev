@@ -1,14 +1,16 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css'
+
 import Navbar from './components/Navbar';
-import Home from './pages/Home';
-import Login from './pages/Login';
+import PrivateRoute from './components/PrivateRoute';
 import Footer from './components/Footer';
+
+import AvisoLogin from './pages/AvisoLogin';
+import Home from './pages/Home';
 import Missoes from './pages/Missoes';
 import Recompensas from './pages/Recompensas';
 import Perfil from './pages/Perfil';
-import PrivateRoute from './components/PrivateRoute';
-import AvisoLogin from './pages/AvisoLogin';
+import Login from './pages/Login';
 
 function App() {
   return (

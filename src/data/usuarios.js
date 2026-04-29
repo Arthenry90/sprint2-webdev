@@ -10,6 +10,7 @@ export const usuariosTeste = [
     peso: 65,
     genero: "f",
     deficiencias: "n/a",
+    pontos: 1000,
     foto: "fotos/marina.jpg"
   },
 
@@ -24,6 +25,7 @@ export const usuariosTeste = [
     altura: 1.78,
     peso: 85,
     foto: "fotos/carlos.jpg",
+    pontos: 1000,
     deficiencias: "diabetes"
   },
 
@@ -38,6 +40,7 @@ export const usuariosTeste = [
     altura: 1.65,
     peso: 62,
     foto: "fotos/fernanda.jpg",
+    pontos: 1000,
     deficiencias: "n/a"
   },
 
@@ -52,6 +55,7 @@ export const usuariosTeste = [
     altura: 1.80,
     peso: 90,
     foto: "fotos/joao.jpg",
+    pontos: 1000,
     deficiencias: "pressão alta"
   },
 
@@ -66,6 +70,7 @@ export const usuariosTeste = [
     altura: 1.60,
     peso: 70,
     foto: "fotos/ana.jpg",
+    pontos: 1000,
     deficiencias: "deficiência auditiva (surdez)"
   },
 
@@ -80,6 +85,7 @@ export const usuariosTeste = [
     altura: 1.75,
     peso: 78,
     foto: "fotos/rafael.jpg",
+    pontos: 1000,
     deficiencias: "asma"
   },
 
@@ -94,6 +100,7 @@ export const usuariosTeste = [
     altura: 1.68,
     peso: 64,
     foto: "fotos/camila.jpg",
+    pontos: 1000,
     deficiencias: "n/a"
   },
 
@@ -108,6 +115,7 @@ export const usuariosTeste = [
     altura: 1.82,
     peso: 88,
     foto: "fotos/lucas.jpg",
+    pontos: 1000,
     deficiencias: "deficiência visual"
   },
 
@@ -122,7 +130,8 @@ export const usuariosTeste = [
     altura: 1.58,
     peso: 72,
     foto: "fotos/patricia.jpg",
-    deficiencias: "hipotireoidismo"
+    pontos: 1000,
+    deficiencias: "hipotireoidismo",
   },
 
   { 
@@ -136,6 +145,7 @@ export const usuariosTeste = [
     altura: 1.70,
     peso: 68,
     foto: "fotos/alex.jpg",
+    pontos: 1000,
     deficiencias: "n/a"
   }
 ];
