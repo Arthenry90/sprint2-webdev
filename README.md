@@ -34,6 +34,19 @@ Dentro da pagina de Perfil, o usuário poderá verificar seus dados coletados no
 2.4 - Recompensas  
 Nesta pagina, temos funcionalidades com LocalStorage, onde o usuário pode resgatar recompensas utilizando seus pontos.
 
+## Login e Senha para acesso
+
+carteirinha: 8472A91B5C03
+senha: senha123
+
+carteirinha: A91C7D3F5B28
+senha: alpha789
+
+carteirinha: F3B82A7D91CE
+senha: beta456
+
+carteirinha: 9D1A7C3E5B62
+senha: gamma321
 
 ## 🎨 Design e Protótipo
 O design da solução Care Plus (Mascote Virtual) pode ser acessado aqui: 
