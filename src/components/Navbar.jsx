@@ -33,6 +33,9 @@ function Navbar() {
             <NavLink to="/missoes" className={({isActive}) => isActive ? "text-[#93CB52] font-bold" : "text-[#1C9770] font-bold hover:text-[#93CB52]"}>Missões</NavLink>
           </li>
           <li>
+            <NavLink to="/informacoes" className={({isActive}) => isActive ? "text-[#93CB52] font-bold" : "text-[#1C9770] font-bold hover:text-[#93CB52]"}>Informações</NavLink>
+          </li>
+          <li>
             <NavLink to="/recompensas" className={({isActive}) => isActive ? "text-[#93CB52] font-bold" : "text-[#1C9770] font-bold hover:text-[#93CB52]"}>Recompensas</NavLink>
           </li>
           <li>

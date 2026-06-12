@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 
 import AvisoLogin from './pages/AvisoLogin';
 import Home from './pages/Home';
+import Informacoes from './pages/Informacoes';
 import Missoes from './pages/Missoes';
 import Recompensas from './pages/Recompensas';
 import Perfil from './pages/Perfil';
@@ -24,6 +25,7 @@ function App() {
             <Route path="/login" element={<Login />} />
 
             <Route path="/missoes" element={<PrivateRoute><Missoes /></PrivateRoute>} />
+            <Route path="/informacoes" element={<PrivateRoute><Informacoes /></PrivateRoute>} />
             <Route path="/recompensas" element={<PrivateRoute><Recompensas /></PrivateRoute>} />
             <Route path="/perfil" element={<PrivateRoute><Perfil /></PrivateRoute>} />
           </Routes>
