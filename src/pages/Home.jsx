@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
-import { listaMissoes } from '../data/missoes';
 import mascoteImg from '../assets/MASCOTE_CARE_PLUS.png';
 import mascoteSaudavel from '../assets/MASCOTE_SAUDAVEL.png';
 import mascoteDoente from '../assets/MASCOTE_DOENTE.png';
 
+const atributosLista = ['SAÚDE', 'RESISTÊNCIA', 'FORÇA', 'AGILIDADE'];
+
 function Home() {
   const [usuario, setUsuario] = useState(null);
   const [missoesReativas, setMissoesReativas] = useState([]);
-  // Sincronizado os valores iniciais com os valores base de design (60, 40, 50, 80)
-  const [statusValores, setStatusValores] = useState({ SAÚDE: 60, RESISTÊNCIA: 40, FORÇA: 50, AGILIDADE: 80 });
+  const [statusValores, setStatusValores] = useState({ SAÚDE: 0, RESISTÊNCIA: 0, FORÇA: 0, AGILIDADE: 0 });
   const [bonecoImagem, setBonecoImagem] = useState(mascoteImg);
 
   useEffect(() => {
@@ -23,9 +23,19 @@ function Home() {
         setMissoesReativas(listaAtual);
         calcularEstadoEspecifico(listaAtual, userObj.id);
       } else {
-        setMissoesReativas(listaMissoes);
-        calcularEstadoEspecifico(listaMissoes, userObj.id);
+        fetch('missoes.json')
+          .then((resposta) => resposta.json())
+          .then((dadosJson) => {
+            setMissoesReativas(dadosJson);
+            calcularEstadoEspecifico(dadosJson, userObj.id);
+            localStorage.setItem(`missoes_${userObj.id}`, JSON.stringify(dadosJson));
+          })
+          .catch((erro) => console.error("Erro ao carregar missões na Home:", erro));
       }
+    } else {
+      setUsuario(null);
+      setMissoesReativas([]);
+      setStatusValores({ SAÚDE: 0, RESISTÊNCIA: 0, FORÇA: 0, AGILIDADE: 0 });
     }
   }, []);
 
@@ -39,27 +49,35 @@ function Home() {
 
     const totalConcluidasSemana = Number(localStorage.getItem(`concluidas_semana_${userId}`)) || 0;
 
-    if (temMissaoNegligenciada) {
-      imagemDefinitiva = mascoteDoente;
-    } else if (totalConcluidasSemana >= 6) {
+    if (totalConcluidasSemana >= 6) {
       imagemDefinitiva = mascoteSaudavel;
-    } else {
+    } else if (totalConcluidasSemana >= 3) {
       imagemDefinitiva = mascoteImg;
+    } else {
+      imagemDefinitiva = mascoteDoente;
     }
     setBonecoImagem(imagemDefinitiva);
 
     const historicoResgates = JSON.parse(localStorage.getItem(`historico_resgates_${userId}`)) || [];
     
-    let saude = 60;
-    let resistencia = 40;
-    let forca = 50;
-    let agilidade = 80;
+    let saude = 0;
+    let resistencia = 0;
+    let forca = 0;
+    let agilidade = 0;
 
     historicoResgates.forEach(m => {
       if (m.atributo === 'FORÇA') forca += 5;
       if (m.atributo === 'RESISTÊNCIA') resistencia += 5;
       if (m.atributo === 'AGILIDADE') agilidade += 5;
       if (m.atributo === 'SAÚDE') saude += 5;
+
+      if (m.titulo) {
+        const tit = m.titulo.toLowerCase();
+        if (tit.includes('academia') || tit.includes('musculação') || tit.includes('calistenia') || tit.includes('crossfit')) forca += 15;
+        if (tit.includes('corrida') || tit.includes('caminhada') || tit.includes('ciclismo')) resistencia += 15;
+        if (tit.includes('yoga') || tit.includes('alongamento') || tit.includes('pilates')) agilidade += 15;
+        if (tit.includes('água') || tit.includes('frutas') || tit.includes('vegetais') || tit.includes('comer')) saude += 15;
+      }
     });
 
     setStatusValores({

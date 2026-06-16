@@ -19,7 +19,7 @@ function Navbar() {
     localStorage.removeItem('isLogged');
     localStorage.removeItem('user');
     setIsLogged(false);
-    navigate('/');
+    window.location.href = '/login';
   };
 
   const linkClasse = ({ isActive }) =>
