@@ -1,0 +1,14 @@
+[
+  { "id": 1, "titulo": "Beber 2L de água", "pontos": 200, "meta": 2000, "unidade": "ml", "tipo": "pendente", "percentual": 0, "atributo": "SAÚDE" },
+  { "id": 2, "titulo": "Corrida 5km", "pontos": 300, "meta": 5000, "unidade": "metros", "tipo": "pendente", "percentual": 0, "atributo": "RESISTÊNCIA" },
+  { "id": 3, "titulo": "Sessão de Yoga", "pontos": 250, "meta": 45, "unidade": "minutos", "tipo": "pendente", "percentual": 0, "atributo": "AGILIDADE" },
+  { "id": 4, "titulo": "Comer 3 porções de vegetais", "pontos": 200, "meta": 3, "unidade": "porções", "tipo": "pendente", "percentual": 0, "atributo": "SAÚDE" },
+  { "id": 5, "titulo": "Treino na Academia", "pontos": 300, "meta": 60, "unidade": "minutos", "tipo": "pendente", "percentual": 0, "atributo": "FORÇA" },
+  { "id": 6, "titulo": "Caminhada de 30 min", "pontos": 200, "meta": 30, "unidade": "minutos", "tipo": "pendente", "percentual": 0, "atributo": "RESISTÊNCIA" },
+  { "id": 7, "titulo": "Alongamento de 10 min", "pontos": 200, "meta": 10, "unidade": "minutos", "tipo": "pendente", "percentual": 0, "atributo": "AGILIDADE" },
+  { "id": 8, "titulo": "Treino de Crossfit", "pontos": 350, "meta": 50, "unidade": "minutos", "tipo": "pendente", "percentual": 0, "atributo": "FORÇA" },
+  { "id": 9, "titulo": "Comer 2 frutas", "pontos": 200, "meta": 2, "unidade": "unidades", "tipo": "pendente", "percentual": 0, "atributo": "SAÚDE" },
+  { "id": 10, "titulo": "Ciclismo urbano", "pontos": 300, "meta": 45, "unidade": "minutos", "tipo": "pendente", "percentual": 0, "atributo": "RESISTÊNCIA" },
+  { "id": 11, "titulo": "Treino de Calistenia", "pontos": 250, "meta": 40, "unidade": "minutos", "tipo": "pendente", "percentual": 0, "atributo": "FORÇA" },
+  { "id": 12, "titulo": "Exercícios de Pilates", "pontos": 250, "meta": 40, "unidade": "minutos", "tipo": "pendente", "percentual": 0,"atributo": "AGILIDADE"}
+]

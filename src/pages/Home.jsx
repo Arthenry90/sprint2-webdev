@@ -1,22 +1,83 @@
 import { useState, useEffect } from 'react';
 import { listaMissoes } from '../data/missoes';
-import mascoteImg from '../assets/MASCOTE _CARE_PLUS.png';
+import mascoteImg from '../assets/MASCOTE_CARE_PLUS.png';
+import mascoteSaudavel from '../assets/MASCOTE_SAUDAVEL.png';
+import mascoteDoente from '../assets/MASCOTE_DOENTE.png';
 
 function Home() {
   const [usuario, setUsuario] = useState(null);
+  const [missoesReativas, setMissoesReativas] = useState([]);
+  // Sincronizado os valores iniciais com os valores base de design (60, 40, 50, 80)
+  const [statusValores, setStatusValores] = useState({ SAÚDE: 60, RESISTÊNCIA: 40, FORÇA: 50, AGILIDADE: 80 });
+  const [bonecoImagem, setBonecoImagem] = useState(mascoteImg);
 
   useEffect(() => {
     const dados = localStorage.getItem('user');
-    if (dados) setUsuario(JSON.parse(dados));
+    if (dados) {
+      const userObj = JSON.parse(dados);
+      setUsuario(userObj);
+      const salvas = localStorage.getItem(`missoes_${userObj.id}`);
+      
+      if (salvas) {
+        const listaAtual = JSON.parse(salvas);
+        setMissoesReativas(listaAtual);
+        calcularEstadoEspecifico(listaAtual, userObj.id);
+      } else {
+        setMissoesReativas(listaMissoes);
+        calcularEstadoEspecifico(listaMissoes, userObj.id);
+      }
+    }
   }, []);
+
+  const calcularEstadoEspecifico = (listaAtividades, userId) => {
+    let imagemDefinitiva = mascoteImg;
+    const umaSemanaAtras = Date.now() - (7 * 24 * 60 * 60 * 1000);
+    
+    const temMissaoNegligenciada = listaAtividades.some(m => 
+      m.tipo === 'progresso' && m.dataInicio && m.dataInicio < umaSemanaAtras
+    );
+
+    const totalConcluidasSemana = Number(localStorage.getItem(`concluidas_semana_${userId}`)) || 0;
+
+    if (temMissaoNegligenciada) {
+      imagemDefinitiva = mascoteDoente;
+    } else if (totalConcluidasSemana >= 6) {
+      imagemDefinitiva = mascoteSaudavel;
+    } else {
+      imagemDefinitiva = mascoteImg;
+    }
+    setBonecoImagem(imagemDefinitiva);
+
+    const historicoResgates = JSON.parse(localStorage.getItem(`historico_resgates_${userId}`)) || [];
+    
+    let saude = 60;
+    let resistencia = 40;
+    let forca = 50;
+    let agilidade = 80;
+
+    historicoResgates.forEach(m => {
+      if (m.atributo === 'FORÇA') forca += 5;
+      if (m.atributo === 'RESISTÊNCIA') resistencia += 5;
+      if (m.atributo === 'AGILIDADE') agilidade += 5;
+      if (m.atributo === 'SAÚDE') saude += 5;
+    });
+
+    setStatusValores({
+      SAÚDE: Math.min(saude, 100),
+      RESISTÊNCIA: Math.min(resistencia, 100),
+      FORÇA: Math.min(forca, 100),
+      AGILIDADE: Math.min(agilidade, 100)
+    });
+  };
 
   if (!usuario) return null;
   
-  const missoesPendentes = listaMissoes.filter(m => m.tipo === 'pendente');
-  const missoesEmProgresso = listaMissoes.filter(m => m.tipo === 'progresso');
+  const missoesPendentes = missoesReativas.filter(m => m.tipo === 'pendente');
+  const missoesEmProgresso = missoesReativas.filter(m => m.tipo === 'progresso');
+  const pendentesLimitadas = missoesPendentes.slice(0, 4);
   const mediaProgresso = missoesEmProgresso.length > 0 
-  ? Math.round(missoesEmProgresso.reduce((acc, m) => acc + m.percentual, 0) / missoesEmProgresso.length)
-  : 0;
+    ? Math.round(missoesEmProgresso.reduce((acc, m) => acc + m.percentual, 0) / missoesEmProgresso.length)
+    : 0;
 
   return (
     <main className="container mx-auto py-8 px-4">
@@ -54,7 +115,7 @@ function Home() {
             <div className="mb-6">
               <h3 className="text-sm font-bold text-gray-700 mb-3 text-center">Missões não iniciadas</h3>
               <div className="grid grid-cols-2 gap-3 justify-items-center">
-                {missoesPendentes.map((m, i) => (
+                {pendentesLimitadas.map((m, i) => (
                   <button 
                     key={i} 
                     className="bg-[#1C9770] text-white text-[10px] py-3 px-3 rounded-[12px] font-bold hover:bg-[#93CB52] transition-colors w-full max-w-[160px] h-[45px] flex items-center justify-center text-center"
@@ -80,8 +141,8 @@ function Home() {
                       className="w-6 rounded-t-md transition-all duration-500 ease-out shadow-sm"
                       style={{ 
                         height: `${missao.percentual}%`, 
-                        backgroundColor: missao.cor,
-                        minHeight: '2px' // Garante que não suma se for 0
+                        backgroundColor: '#c7cb52',
+                        minHeight: '2px'
                       }}
                     ></div>
 
@@ -106,7 +167,7 @@ function Home() {
             <div className="bg-white border-2 border-[#1C9770] rounded-[20px] p-6 shadow-sm flex justify-center items-center">
               <figure className="m-0">
                 <img 
-                  src={mascoteImg} 
+                  src={bonecoImagem} 
                   alt="Mascote Careplus" 
                   className="max-h-[250px] object-contain hover:scale-105 transition-transform duration-300"
                 />
@@ -120,17 +181,17 @@ function Home() {
               
               <div className="grid grid-cols-2 gap-x-6 gap-y-4">
                 {[
-                  { label: "SAÚDE", valor: 60 },
-                  { label: "RESISTÊNCIA", valor: 40 },
-                  { label: "FORÇA", valor: 50 },
-                  { label: "AGILIDADE", valor: 80 }
+                  { label: "SAÚDE" },
+                  { label: "RESISTÊNCIA" },
+                  { label: "FORÇA" },
+                  { label: "AGILIDADE" }
                 ].map((status, idx) => (
                   <div key={idx}>
                     <label className="text-[10px] font-bold text-gray-700 block mb-1">{status.label}</label>
                     <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
                       <div 
-                        className="h-full bg-[#1C9770]" 
-                        style={{ width: `${status.valor}%` }}
+                        className="h-full bg-[#1C9770] transition-all duration-500 ease-out" 
+                        style={{ width: `${statusValores[status.label]}%` }}
                       ></div>
                     </div>
                   </div>
